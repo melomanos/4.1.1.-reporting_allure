@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import ru.netology.web.data.DataGenerator;
+import ru.netology.web.data.RegistrationInfo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,8 +42,22 @@ class RegistrationTest {
         $("[data-test-id='name'] input").setValue("Василий Петров");
         $("[data-test-id='phone'] input").setValue("+79200000000");
         $("[data-test-id='agreement']").click();
-        $$("[type='button']").find(exactText("Забронировать")).click();
-        $(withText(meetingDate)).waitUntil(visible, 13000);
+        $$("[type='button']").find(exactText("Запланировать")).click();
+        $$("[type='button']").find(exactText("Перепланировать")).click();
+        $(withText(meetingDate)).waitUntil(visible, 3000);
+    }
+
+    @Test
+    void shouldRegisterSuccessfulFaker() {
+        RegistrationInfo user = DataGenerator.Registration.generate("ru");
+        $("[data-test-id='city'] input").setValue(user.getCity());
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
+        $("[data-test-id='date'] input").setValue(meetingDate);
+        $("[data-test-id='name'] input").setValue(user.getName());
+        $("[data-test-id='phone'] input").setValue(user.getPhone());
+        $("[data-test-id='agreement']").click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
+        $(withText(meetingDate)).waitUntil(visible, 3000);
     }
 
     @Test
@@ -53,8 +69,9 @@ class RegistrationTest {
         $("[data-test-id='name'] input").setValue("Василий Петров");
         $("[data-test-id='phone'] input").setValue("+79200000000");
         $("[data-test-id='agreement']").click();
-        $$("[type='button']").find(exactText("Забронировать")).click();
-        $(withText(meetingDate)).waitUntil(visible, 13000);
+        $$("[type='button']").find(exactText("Запланировать")).click();
+        $$("[type='button']").find(exactText("Перепланировать")).click();
+        $(withText(meetingDate)).waitUntil(visible, 3000);
     }
 
     @Test
@@ -72,13 +89,14 @@ class RegistrationTest {
         $("[data-test-id='name'] input").setValue("Василий Петров");
         $("[data-test-id='phone'] input").setValue("+79200000000");
         $("[data-test-id='agreement']").click();
-        $$("[type='button']").find(exactText("Забронировать")).click();
-        $(withText(meetingDateCalendarApp)).waitUntil(visible, 13000);
+        $$("[type='button']").find(exactText("Запланировать")).click();
+        $$("[type='button']").find(exactText("Перепланировать")).click();
+        $(withText(meetingDateCalendarApp)).waitUntil(visible, 3000);
     }
 
     @Test
     void shouldRegisterAllFieldsEmpty() {
-        $$("[type='button']").find(exactText("Забронировать")).click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
         $(withText("Поле обязательно для заполнения")).waitUntil(visible, 3000);
     }
 
@@ -90,7 +108,7 @@ class RegistrationTest {
         $("[data-test-id='name'] input").setValue("Василий Петров");
         $("[data-test-id='phone'] input").setValue("+79200000000");
         $("[data-test-id='agreement']").click();
-        $$("[type='button']").find(exactText("Забронировать")).click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
         $(withText("Доставка в выбранный город недоступна")).waitUntil(visible, 3000);
     }
 
@@ -102,7 +120,7 @@ class RegistrationTest {
         $("[data-test-id='name'] input").setValue("Василий Петров");
         $("[data-test-id='phone'] input").setValue("+79200000000");
         $("[data-test-id='agreement']").click();
-        $$("[type='button']").find(exactText("Забронировать")).click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
         $(withText("Заказ на выбранную дату невозможен")).waitUntil(visible, 3000);
     }
 
@@ -114,19 +132,20 @@ class RegistrationTest {
         $("[data-test-id='name'] input").setValue("Oleg Ivanov");
         $("[data-test-id='phone'] input").setValue("+79200000000");
         $("[data-test-id='agreement']").click();
-        $$("[type='button']").find(exactText("Забронировать")).click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
         $(withText("Имя и Фамилия указаные неверно")).waitUntil(visible, 3000);
     }
 
     @Test
     void shouldRegisterWrongPhone() {
+        // написать issue
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
         $("[data-test-id='date'] input").setValue(meetingDate);
         $("[data-test-id='name'] input").setValue("Василий Петров");
-        $("[data-test-id='phone'] input").setValue("+7920000000");
+        $("[data-test-id='phone'] input").setValue("+");
         $("[data-test-id='agreement']").click();
-        $$("[type='button']").find(exactText("Забронировать")).click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
         $(withText("Телефон указан неверно")).waitUntil(visible, 3000);
     }
 
@@ -137,7 +156,7 @@ class RegistrationTest {
         $("[data-test-id='date'] input").setValue(meetingDate);
         $("[data-test-id='name'] input").setValue("Василий Петров");
         $("[data-test-id='phone'] input").setValue("+79200000000");
-        $$("[type='button']").find(exactText("Забронировать")).click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
         $$("[data-test-id='agreement'].input_invalid .checkbox__text")
                 .find(new Text("Я соглашаюсь с условиями обработки и использования моих персональных данных"))
                 .waitUntil(visible, 3000);
