@@ -17,6 +17,7 @@ public class DataGenerator {
 
         public static RegistrationInfo generate(String locale) {
             Faker faker = new Faker(new Locale("ru"));
+
             return new RegistrationInfo(
                 generateCity(),
                 generateMeetingDate(5),
@@ -39,28 +40,24 @@ public class DataGenerator {
                     "Орёл", "Пенза", "Псков", "Ростов-на-Дону", "Рязань", "Самара", "Саратов", "Южно-Сахалинск",
                     "Екатеринбург", "Смоленск", "Тамбов", "Тверь", "Томск", "Тула", "Тюмень", "Ульяновск", "Челябинск",
                     "Ярославль", "Нарьян-Мар", "Ханты-Мансийск", "Анадырь", "Салехард", "Биробиджан");
-            String city = adminCenterCity.get(random.nextInt(adminCenterCity.size()));
-            return city;
+
+            return adminCenterCity.get(random.nextInt(adminCenterCity.size()));
         }
 
         public static String generateCityWrong() {
             Random random = new Random();
             List<String> wrongCity = Arrays.asList("Chicago", "Миллерово", "Кингисепп", "Toronto", "Dubai");
-            String city = wrongCity.get(random.nextInt(wrongCity.size()));
-            return city;
+
+            return wrongCity.get(random.nextInt(wrongCity.size()));
         }
 
         public static String generateMeetingDate(int plusDays) {
-            String meetingDate = LocalDate.now().plusDays(plusDays).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-
-            return meetingDate;
+            return LocalDate.now().plusDays(plusDays).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         }
 
         public static String generateMeetingDateCalendarApp(int plusDays) {
-            String meetingDateCalendarApp = LocalDate.now().plusDays(plusDays).plusMonths(2)
+            return LocalDate.now().plusDays(plusDays).plusMonths(2)
                     .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-
-            return meetingDateCalendarApp;
         }
 
         public static String generateMeetingDateCalendarAppCut(int plusDays) {
@@ -85,9 +82,8 @@ public class DataGenerator {
             int dayOfMonth = random.nextInt(28);
             int month = random.nextInt(12);
             int year = random.nextInt(2019);
-            String meetingDateWrong = LocalDate.of(year, month, dayOfMonth).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
-            return meetingDateWrong;
+            return LocalDate.of(year, month, dayOfMonth).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         }
 
         public static String generateNameWrong() {

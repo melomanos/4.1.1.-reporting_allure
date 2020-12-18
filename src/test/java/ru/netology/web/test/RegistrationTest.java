@@ -104,7 +104,7 @@ class RegistrationTest {
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
         $("[data-test-id='date'] input").setValue(user.getDate());
         $("[data-test-id='name'] input").setValue(DataGenerator.Registration.generateNameWrong());
-        $("[data-test-id='date'] input").setValue(user.getPhone());
+        $("[data-test-id='phone'] input").setValue(user.getPhone());
         $("[data-test-id='agreement']").click();
         $$("[type='button']").find(exactText("Запланировать")).click();
         $(withText("Имя и Фамилия указаные неверно")).waitUntil(visible, 3000);
@@ -112,7 +112,6 @@ class RegistrationTest {
 
     @Test
     void shouldRegisterWrongPhone() {
-        // написать issue
         RegistrationInfo user = DataGenerator.Registration.generate("ru");
         $("[data-test-id='city'] input").setValue(DataGenerator.Registration.generateCity());
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
