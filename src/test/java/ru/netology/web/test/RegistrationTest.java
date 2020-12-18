@@ -110,19 +110,19 @@ class RegistrationTest {
         $(withText("Имя и Фамилия указаные неверно")).waitUntil(visible, 3000);
     }
 
-//    @Test
-//    void shouldRegisterWrongPhone() {
-//        // написать issue
-//        RegistrationInfo user = DataGenerator.Registration.generate("ru");
-//        $("[data-test-id='city'] input").setValue(DataGenerator.Registration.generateCity());
-//        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
-//        $("[data-test-id='date'] input").setValue(user.getDate());
-//        $("[data-test-id='name'] input").setValue(user.getName());
-//        $("[data-test-id='phone'] input").setValue(DataGenerator.Registration.generatePhoneWrong());
-//        $("[data-test-id='agreement']").click();
-//        $$("[type='button']").find(exactText("Запланировать")).click();
-//        $(withText("Телефон указан неверно")).waitUntil(visible, 3000);
-//    }
+    @Test
+    void shouldRegisterWrongPhone() {
+        // написать issue
+        RegistrationInfo user = DataGenerator.Registration.generate("ru");
+        $("[data-test-id='city'] input").setValue(DataGenerator.Registration.generateCity());
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
+        $("[data-test-id='date'] input").setValue(user.getDate());
+        $("[data-test-id='name'] input").setValue(user.getName());
+        $("[data-test-id='phone'] input").setValue(DataGenerator.Registration.generatePhoneWrong());
+        $("[data-test-id='agreement']").click();
+        $$("[type='button']").find(exactText("Запланировать")).click();
+        $(withText("Телефон указан неверно")).waitUntil(visible, 3000);
+    }
 
     @Test
     void shouldRegisterDoNotPushRadioButton() {
